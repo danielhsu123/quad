@@ -385,7 +385,6 @@ textarea.inp{resize:vertical;min-height:84px;line-height:1.45}
 const PALETTE=["#FF5CA8","#D8FF47","#5FE8FF","#FF9B3D","#A78BFA","#4ADE80"];
 const EMOJIS=["🍻","🥾","🏓","🍷","📊","🎤","🌮","⚽","🎨","🔥","🪔","💃","📱","💸","🏃","🎿"];
 
-loadEvents();
 
 const CATS={
   social:{l:"Social",c:"#FF5CA8"},
@@ -420,22 +419,27 @@ const USERS=[
 
 let EVENTS = [];
 
+function fixEvent(e) {
+  if (!e.c) e.c = PALETTE[(e.p ?? 0) % PALETTE.length];
+  if (!Array.isArray(e.tags)) e.tags = [];
+  if (!Array.isArray(e.going)) e.going = [];
+  return e;
+}
+
 async function loadEvents() {
   try {
     const res = await fetch("./data/events.json?v=" + Date.now());
     if (!res.ok) throw new Error(res.status);
     const data = await res.json();
-    if (Array.isArray(data) && data.length) {
-      EVENTS = data;
-      console.log(`Loaded ${EVENTS.length} events`);
-      return;
-    }
-    throw new Error("empty file");
+    if (!Array.isArray(data) || !data.length) throw new Error("empty file");
+    EVENTS = data.map(fixEvent);
   } catch (err) {
-    console.warn("Could not load events.json:", err.message);
+    console.warn("events.json unavailable:", err.message);
     const res = await fetch("./data/anderson-seed.json");
-    EVENTS = await res.json();
+    EVENTS = (await res.json()).map(fixEvent);
   }
+  console.log(`Loaded ${EVENTS.length} events`);
+  if (me) enterApp();
 }
 
 /* ================= STATE ================= */
@@ -474,6 +478,7 @@ function score(ev){
   if(ev.cat==="networking"&&me.track!=="undecided"){n+=10;parts.push(["networking",0])}
   if(me.yr==="1Y"&&ev.cat==="recruiting"){n+=8}
   if(goingList(ev).length>=5){n+=6;parts.push(["filling up",0])}
+  if(ev.source==="timeout"){n+=14;parts.push(["new in LA",0])}
   return{n,parts};
 }
 
@@ -829,8 +834,11 @@ $("#nav").addEventListener("click",e=>{
   if(b.dataset.go==="s-friends")renderFriends($("#fSearch").value);
   if(b.dataset.go==="s-profile")renderProfile();
   if(b.dataset.go==="s-create")renderCreate();
-  show(b.dataset.go);
+   show(b.dataset.go);
 });
+
+loadEvents();
+
 </script>
 </body>
 </html>
