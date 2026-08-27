@@ -385,6 +385,8 @@ textarea.inp{resize:vertical;min-height:84px;line-height:1.45}
 const PALETTE=["#FF5CA8","#D8FF47","#5FE8FF","#FF9B3D","#A78BFA","#4ADE80"];
 const EMOJIS=["🍻","🥾","🏓","🍷","📊","🎤","🌮","⚽","🎨","🔥","🪔","💃","📱","💸","🏃","🎿"];
 
+loadEvents();
+
 const CATS={
   social:{l:"Social",c:"#FF5CA8"},
   professional:{l:"Professional",c:"#A78BFA"},
@@ -417,9 +419,24 @@ const USERS=[
 ];
 
 let EVENTS = [];
-fetch("./data/events.json")
-  .then(r => r.json())
-  .then(d => { EVENTS = d; });
+
+async function loadEvents() {
+  try {
+    const res = await fetch("./data/events.json?v=" + Date.now());
+    if (!res.ok) throw new Error(res.status);
+    const data = await res.json();
+    if (Array.isArray(data) && data.length) {
+      EVENTS = data;
+      console.log(`Loaded ${EVENTS.length} events`);
+      return;
+    }
+    throw new Error("empty file");
+  } catch (err) {
+    console.warn("Could not load events.json:", err.message);
+    const res = await fetch("./data/anderson-seed.json");
+    EVENTS = await res.json();
+  }
+}
 
 /* ================= STATE ================= */
 let me=null;
