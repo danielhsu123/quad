@@ -1,0 +1,39 @@
+​# .github/workflows/ingest.yml
+name: Refresh events
+
+on:
+  schedule:
+    # Wednesdays at 15:00 UTC = 8am Pacific (summer) / 7am Pacific (winter).
+    # Cron here is ALWAYS UTC and GitHub may delay it a few minutes under load.
+    - cron: '0 15 * * 3'
+  workflow_dispatch:        # lets you click "Run workflow" in the Actions tab
+
+permissions:
+  contents: write           # required, or the bot cannot push the commit
+
+jobs:
+  refresh:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+
+      - name: Scrape and normalize
+        env:
+          ANTHROPIC_API_KEY: ${{ secrets.ANTHROPIC_API_KEY }}
+        run: node scripts/ingest.mjs
+
+      - name: Commit if anything changed
+        run: |
+          git config user.name  "quad-bot"
+          git config user.email "actions@github.com"
+          git add data/events.json
+          if git diff --staged --quiet; then
+            echo "No changes this week."
+          else
+            git commit -m "Refresh events ($(date -u +%Y-%m-%d))"
+            git push
+          fi
