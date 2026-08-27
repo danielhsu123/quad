@@ -416,48 +416,10 @@ const USERS=[
  {id:"u12",n:"Nina Alvarado",yr:"2Y",from:"Los Angeles",track:"brand",int:["entertainment","retail"],hob:["surfing","live music","yoga"],c:"#FB7185"}
 ];
 
-let EVENTS=[
- {id:"e1",t:"Anderson Afternoons",gl:"🍻",c:"#FF5CA8",cat:"social",d:4,s:"17:00",loc:"Marion Anderson Courtyard",host:"Student Association",hostId:null,
-  desc:"The weekly one. Free drinks, everyone's section, ends whenever it ends. First 100 people get the good beer.",tags:["wine"],going:["u2","u4","u7","u9","u12","u10"]},
- {id:"e2",t:"McKinsey info session",gl:"📊",c:"#D8FF47",cat:"recruiting",d:1,s:"18:00",loc:"Korn Convocation Hall",host:"Parker CMC",hostId:null,
-  desc:"Firm overview, then open networking with the LA office. Business casual. They do track attendance.",track:"consulting",tags:[],going:["u1","u6","u9"]},
- {id:"e3",t:"Case prep bootcamp: profitability",gl:"📈",c:"#D8FF47",cat:"recruiting",d:0,s:"12:15",loc:"Cornell Hall D307",host:"Consulting Association",hostId:null,
-  desc:"Two frameworks, three live cases, pizza. Bring a notebook and a partner if you have one.",track:"consulting",tags:[],going:["u1","u6"]},
- {id:"e4",t:"Napa cab tasting",gl:"🍷",c:"#A78BFA",cat:"food",d:2,s:"19:00",loc:"Marion Anderson Courtyard",host:"Wine Club",hostId:null,
-  desc:"Six pours, blind, and a scorecard. $15 for members. The sommelier is a second-year and takes it very seriously.",tags:["wine"],going:["u1","u9","u5"]},
- {id:"e5",t:"Sunrise hike + breakfast burritos",gl:"🥾",c:"#34D399",cat:"outdoors",d:5,s:"06:30",loc:"Temescal Canyon trailhead",host:"Lena Petrova",hostId:"u6",
-  desc:"Up for sunrise, down by 8:30, burritos after. It's 3 miles and not that steep, I promise. Carpools leaving from Weyburn at 5:45.",tags:["hiking"],going:["u6","u1","u8"]},
- {id:"e6",t:"Pickleball ladder night",gl:"🏓",c:"#4ADE80",cat:"sports",d:3,s:"19:00",loc:"Sunset Canyon Rec",host:"Racquet Club",hostId:null,
-  desc:"Round robin, all levels, paddles provided. Winner buys nothing, loser buys tacos.",tags:["pickleball"],going:["u2","u7","u11"]},
- {id:"e7",t:"Goldman Sachs IBD overview",gl:"💼",c:"#D8FF47",cat:"recruiting",d:1,s:"12:15",loc:"Collins Center",host:"Parker CMC",hostId:null,
-  desc:"Division overview and Q&A with the LA team. Lunch provided.",track:"banking",tags:[],going:["u3","u11"]},
- {id:"e8",t:"Out@Anderson happy hour",gl:"🌈",c:"#F472B6",cat:"social",d:2,s:"17:30",loc:"Rosenfeld Library patio",host:"Out@Anderson",hostId:null,
-  desc:"Low key, open to allies, first drink on the club.",tags:[],going:["u2","u10","u12"]},
- {id:"e9",t:"Noche de Networking",gl:"💃",c:"#5FE8FF",cat:"networking",d:3,s:"18:00",loc:"Marion Anderson Courtyard",host:"LMSA",hostId:null,
-  desc:"Alumni from six firms, tacos from Leo's, and a salsa lesson at 8 that nobody expects.",tags:[],going:["u4","u9"],region:"Mexico"},
- {id:"e10",t:"BBSA alumni fireside",gl:"🔥",c:"#FF9B3D",cat:"networking",d:3,s:"17:00",loc:"Korn Hall",host:"BBSA",hostId:null,
-  desc:"Three alums, one hour, honest answers about the first two years out.",tags:[],going:["u5","u8"],region:"Nigeria"},
- {id:"e11",t:"Diwali dinner",gl:"🪔",c:"#FF9B3D",cat:"social",d:5,s:"18:00",loc:"Ackerman Grand Ballroom",host:"South Asian Business Association",hostId:null,
-  desc:"Catered thali, dance performances, and a rangoli competition. Bring your partner, bring your section.",tags:["cooking"],going:["u3","u8"],region:"India"},
- {id:"e12",t:"Snap PM panel",gl:"📱",c:"#5FE8FF",cat:"recruiting",d:2,s:"12:15",loc:"Cornell Hall D307",host:"PM Club",hostId:null,
-  desc:"Four Snap PMs, two of them Anderson alums, on how the interview loop actually works.",track:"tech",tags:[],going:["u2","u10","u7"]},
- {id:"e13",t:"Term sheet teardown",gl:"💸",c:"#A78BFA",cat:"professional",d:3,s:"12:15",loc:"Cornell Hall D313",host:"VC & PE Club",hostId:null,
-  desc:"We take a real Series A term sheet apart line by line. Bring your laptop.",track:"pe",tags:[],going:["u5","u7","u3"]},
- {id:"e14",t:"Karaoke at Rosen's",gl:"🎤",c:"#FF5CA8",cat:"social",d:4,s:"21:00",loc:"Rosen Karaoke, Koreatown",host:"Grace Kim",hostId:"u10",
-  desc:"Room booked 9 to midnight, $12 a head, no judgment and no ballads before 10.",tags:["karaoke","live music"],going:["u10","u4","u2","u12"]},
- {id:"e15",t:"Smorgasburg food crawl",gl:"🌮",c:"#FF9B3D",cat:"food",d:6,s:"11:00",loc:"ROW DTLA",host:"Diego Alvarez",hostId:"u4",
-  desc:"Eight stalls, one shared table, we split everything. Metro from Westwood at 10.",tags:["cooking"],going:["u4","u9","u12"]},
- {id:"e16",t:"Sunday pickup soccer",gl:"⚽",c:"#4ADE80",cat:"sports",d:6,s:"10:00",loc:"IM Field",host:"Anderson FC",hostId:null,
-  desc:"Casual, mixed, we go until people leave. Wear something dark.",tags:["soccer"],going:["u4","u9","u6"]},
- {id:"e17",t:"Getty sunday sketching",gl:"🎨",c:"#F472B6",cat:"arts",d:6,s:"11:00",loc:"Getty Center",host:"Nina Alvarado",hostId:"u12",
-  desc:"Free entry, bring a pad. No skill required, that's the whole point.",tags:["photography","reading"],going:["u12","u8","u10"]},
- {id:"e18",t:"Morning run club",gl:"🏃",c:"#34D399",cat:"sports",d:0,s:"06:30",loc:"Drake Stadium",host:"Anderson Running Club",hostId:null,
-  desc:"Five miles, conversational pace, coffee after at Kerckhoff.",tags:["running"],going:["u1","u3","u8"]},
- {id:"e19",t:"Ski club kickoff BBQ",gl:"🎿",c:"#5FE8FF",cat:"social",d:5,s:"12:00",loc:"Sunset Rec fire pits",host:"Ski & Snowboard Club",hostId:null,
-  desc:"Burgers, sign-ups for the Mammoth trip, and a very optimistic weather forecast.",tags:["skiing"],going:["u7","u2","u11"]},
- {id:"e20",t:"Beach bonfire, Dockweiler",gl:"🔥",c:"#FF9B3D",cat:"social",d:4,s:"19:30",loc:"Dockweiler Pit 42",host:"Tyler Brooks",hostId:"u7",
-  desc:"Wood's covered. Bring a chair, bring a six pack, bring someone. Pit 42, look for the loud one.",tags:["surfing","live music"],going:["u7","u2","u12","u11"]}
-];
+let EVENTS = [];
+fetch("./data/events.json")
+  .then(r => r.json())
+  .then(d => { EVENTS = d; });
 
 /* ================= STATE ================= */
 let me=null;
