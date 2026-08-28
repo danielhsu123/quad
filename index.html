@@ -481,6 +481,25 @@ let invitedTo={};       // eventId -> [userIds]
 let filters={cat:null,q:""};
 let currentEvent=null;
 let prevScreen="s-home";
+  const STORE="quad_v1";
+function saveState(){
+  if(!me) return;
+  try{
+    localStorage.setItem(STORE, JSON.stringify({
+      me, rsvps, friends:[...friends], invitedTo,
+      mine: EVENTS.filter(e=>e.source==="mine")
+    }));
+  }catch(e){}
+}
+function restoreState(){
+  try{
+    const s=JSON.parse(localStorage.getItem(STORE));
+    if(!s||!s.me) return false;
+    me=s.me; rsvps=s.rsvps||{}; friends=new Set(s.friends||[]); invitedTo=s.invitedTo||{};
+    (s.mine||[]).forEach(e=>EVENTS.unshift(fixEvent(e)));
+    return true;
+  }catch(e){ return false; }
+}
 
 /* ================= HELPERS ================= */
 const $=s=>document.querySelector(s);
@@ -588,6 +607,7 @@ $("#obNext").addEventListener("click",()=>{
   else{
     me={id:"me",n:draft.name.trim(),yr:draft.yr,from:draft.from,track:draft.track,int:draft.int,hob:draft.hob,c:"#D8FF47",email:draft.email};
     ["u1","u2","u4"].forEach(i=>friends.add(i));
+    saveState();
     enterApp();
   }
 });
@@ -608,6 +628,7 @@ $("#signinList").addEventListener("click",e=>{
   const u=user(b.dataset.signin);
   me={...u,id:"me",realId:u.id};
   USERS.filter(x=>x.id!==u.id).slice(0,3).forEach(x=>friends.add(x.id));
+  saveState();
   enterApp();
 });
 
@@ -711,7 +732,8 @@ function openEvent(id){
     const r=e.target.closest("[data-r]");
     if(r){rsvps[ev.id]=rsvps[ev.id]===r.dataset.r?null:r.dataset.r;
       toast(rsvps[ev.id]==="going"?"You're on the list":rsvps[ev.id]==="maybe"?"Marked maybe":"RSVP updated");
-      openEvent(ev.id);renderHome();renderBrowse();renderProfile();return}
+      saveState();
+          openEvent(ev.id);renderHome();renderBrowse();renderProfile();return}
     if(e.target.closest("#inviteBtn"))openInvite(ev);
   });
   show("s-event");
@@ -786,7 +808,7 @@ $("#friendsBody").addEventListener("click",e=>{
   const a=e.target.closest("[data-friend]"),r=e.target.closest("[data-unfriend]");
   if(a){friends.add(a.dataset.friend);toast(`Added ${user(a.dataset.friend).n.split(" ")[0]}`)}
   if(r){friends.delete(r.dataset.unfriend)}
-  if(a||r){renderFriends($("#fSearch").value);renderHome()}
+  if(a||r){renderFriends($("#fSearch").value);renderHome();saveState()}
 });
 $("#fSearch").addEventListener("input",e=>renderFriends(e.target.value));
 
@@ -827,13 +849,15 @@ $("#cvSubmit").addEventListener("click",()=>{
   if(!t){toast("Give it a name first");$("#cvTitle").focus();return}
   const id="ev"+Date.now();
   EVENTS.unshift({id,t,gl:cv.gl,c:cv.c,cat:$("#cvCat").value,d:+$("#cvDay").value,s:$("#cvTime").value,
-    loc:$("#cvLoc").value||"TBD",host:me.n,hostId:null,desc:$("#cvDesc").value||"No details yet.",tags:[],going:[]});
+    loc:$("#cvLoc").value||"TBD",host:me.n,hostId:null,desc:$("#cvDesc").value||"No details yet.",tags:[],going:[],source:"mine"});
   rsvps[id]="going";
   invitedTo[id]=[...cv.inv];
   const c=cv.inv.size;
   cv={gl:"🍻",c:"#FF5CA8",inv:new Set()};
   ["#cvTitle","#cvLoc","#cvDesc"].forEach(s=>$(s).value="");
   renderCreate();renderHome();renderBrowse();renderProfile();
+
+  saveState();
   toast(c?`Live — ${c} invite${c>1?"s":""} sent`:"Your event is live");
   prevScreen="s-home";openEvent(id);
 });
@@ -859,9 +883,10 @@ function renderProfile(){
     ${maybe.length?`<div class="sechead"><h3>Maybe</h3></div><div class="feed">${maybe.map(e=>card(e,false)).join("")}</div>`:""}
     <div class="pad" style="margin-top:26px"><button class="btn btn-ghost" id="logout">Sign out</button></div>`;
   $("#logout").addEventListener("click",()=>{
-    me=null;rsvps={};friends=new Set();invitedTo={};obIdx=0;
-    draft={name:"",email:"",yr:"1Y",from:null,track:null,int:[],hob:[]};
-    show("s-auth");
+  localStorage.removeItem(STORE);
+  me=null;rsvps={};friends=new Set();invitedTo={};obIdx=0;
+  draft={name:"",email:"",yr:"1Y",from:null,track:null,int:[],hob:[]};
+  show("s-auth");
   });
 }
 $("#toProfileAv").addEventListener("click",()=>show("s-profile"));
@@ -878,7 +903,7 @@ $("#nav").addEventListener("click",e=>{
    show(b.dataset.go);
 });
 
-loadEvents();
+loadEvents().then(()=>{ if(restoreState()) enterApp(); });
 function setMode(m){
   document.body.dataset.mode = m;
   document.getElementById("modeBtn").textContent = m === "dark" ? "☀" : "☾";
