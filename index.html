@@ -618,7 +618,11 @@ function renderBrowse(){
   if(filters.cat)list=list.filter(e=>e.cat===filters.cat);
   if(filters.q){const q=filters.q.toLowerCase();
     list=list.filter(e=>(e.t+e.loc+e.host+e.desc).toLowerCase().includes(q))}
-  list.sort((a,b)=>a.d-b.d||a.s.localeCompare(b.s));
+ list.sort((a,b)=>{
+  const ad = a.date ? new Date(a.date).getTime() : new Date(2026,9,5+a.d).getTime();
+  const bd = b.date ? new Date(b.date).getTime() : new Date(2026,9,5+b.d).getTime();
+  return ad - bd || a.s.localeCompare(b.s);
+});
   $("#browseFeed").innerHTML=list.length?list.map(e=>card(e,false)).join("")
     :`<div class="empty"><b>No events match</b>Try a different category, or clear the search.</div>`;
 }
