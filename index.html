@@ -9,6 +9,7 @@
 <link href="https://fonts.googleapis.com/css2?family=Syne:wght@600;700;800&family=Space+Grotesk:wght@400;500;700&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
 <style>
 :root{
+  --nav-h:66px;
 --void:#08192E; --surface:#10294A; --raised:#17375F; --edge:#234B78;
 --cream:#EDF4FC; --dim:#85A3C4;
 --lime:#F2A900; --flare:#4E9BFF; --sky:#6FE3C4; --tangerine:#FFD666;
@@ -409,6 +410,7 @@ h3{font-family:Archivo,sans-serif;font-weight:700;letter-spacing:-.01em;text-tra
 <div class="toast" id="toast"></div>
 <div class="sheet" id="sheet"><div class="sheet-bg" id="sheetBg"></div><div class="sheet-in"><div class="grab"></div><div id="sheetBody"></div></div></div>
 
+    <button id="modeBtn" aria-label="Toggle light or dark mode">☾</button>
 <script>
 /* ================= DATA ================= */
 const PALETTE=["#C4392A","#0E8C93","#2D68C4","#6B4FBF","#1E8E5A","#B0651C"];
@@ -889,6 +891,6 @@ let saved = "light";
 try { saved = localStorage.getItem("quad_mode") || "light"; } catch {}
 setMode(saved);
 </script>
-  <button id="modeBtn" aria-label="Toggle light or dark mode">☾</button>
+
 </body>
 </html>
