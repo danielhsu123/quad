@@ -662,8 +662,9 @@ function card(ev,showWhy){
 /* ---------- home ---------- */
 function renderHome(){
   $("#homeGreet").textContent=`Hey ${me.n.split(" ")[0]}`;
+  const evDate=e=>e.date?new Date(e.date).getTime():new Date(2026,9,5+e.d).getTime();
   const ranked=EVENTS.map(e=>({e,...score(e)})).sort((a,b)=>b.n-a.n);
-  const top=ranked.filter(x=>x.n>0).slice(0,8);
+  const top=ranked.filter(x=>x.n>0).slice(0,8).sort((a,b)=>evDate(a.e)-evDate(b.e));
   $("#homeSub").textContent=`${top.length} events matched to ${TRACKS[me.track].toLowerCase()}, ${me.hob.slice(0,2).join(" and ")}, and who you follow.`;
   $("#toProfileAv").innerHTML=avatar(me,"md");
   $("#homeFeed").innerHTML=top.map(x=>card(x.e,true)).join("")||
