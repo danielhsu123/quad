@@ -288,11 +288,9 @@ h3{font-family:Archivo,sans-serif;font-weight:700;letter-spacing:-.01em;text-tra
   display:grid;place-items:center;box-shadow:0 2px 10px rgba(0,0,0,.16);
 }
   /* --- readable accents in light mode --- */
+/* --- readable accents in light mode --- */
 body[data-mode="light"]{
-  --lime:#C4901A;
-  --accent-ink:#8A5F0A;
   --sky:#1F5AAE;
-  --nav-ink:#8A5F0A;
 }
 body[data-mode="light"] .why b{
   color:#8A5F0A;
@@ -305,14 +303,13 @@ body[data-mode="light"] .why b.hot{
   border-color:rgba(163,46,31,.4);
   background:rgba(163,46,31,.07);
 }
-body[data-mode="light"] .when{color:#8A5F0A;font-weight:600}
 body[data-mode="light"] .tag{font-weight:600}
 
-/* --- give the why-chips room, and centre them --- */
+/* --- give the why-chips room, left aligned --- */
 .why{
   margin-top:12px;
   padding:0 16px 14px;
-  justify-content:center;
+  justify-content:flex-start;
 }
 .ecard-top{padding-bottom:2px}
 </style>
@@ -446,14 +443,14 @@ const EMOJIS=["🍻","🥾","🏓","🍷","📊","🎤","🌮","⚽","🎨","�
 
 
 const CATS={
-  social:{l:"Social",c:"#FF5CA8"},
-  professional:{l:"Professional",c:"#A78BFA"},
-  networking:{l:"Networking",c:"#5FE8FF"},
-  recruiting:{l:"Recruiting",c:"#D8FF47"},
-  sports:{l:"Sports",c:"#4ADE80"},
-  food:{l:"Food & drink",c:"#FF9B3D"},
-  arts:{l:"Arts",c:"#F472B6"},
-  outdoors:{l:"Outdoors",c:"#34D399"}
+  social:{l:"Social",c:"#C43D77"},
+  professional:{l:"Professional",c:"#6B4FBF"},
+  networking:{l:"Networking",c:"#0E8C93"},
+  recruiting:{l:"Recruiting",c:"#B8860B"},
+  sports:{l:"Sports",c:"#2A8A55"},
+  food:{l:"Food & drink",c:"#B0651C"},
+  arts:{l:"Arts",c:"#A83E6B"},
+  outdoors:{l:"Outdoors",c:"#1E8E6E"}
 };
 const TRACKS={consulting:"Consulting",banking:"Investment banking",pe:"Private equity",tech:"Tech & product",brand:"Brand & marketing",entrepreneur:"Startups",impact:"Social impact",undecided:"Still figuring it out"};
 const INTERESTS=["AI","climate","healthcare","real estate","entertainment","sports business","fintech","retail","energy","supply chain","policy","education"];
@@ -462,7 +459,7 @@ const REGIONS=["Los Angeles","Bay Area","New York","Chicago","Texas","Southeast 
 const DAYS=["Mon Oct 5","Tue Oct 6","Wed Oct 7","Thu Oct 8","Fri Oct 9","Sat Oct 10","Sun Oct 11"];
 
 const USERS=[
- {id:"u1",n:"Maya Chen",yr:"1Y",from:"Bay Area",track:"consulting",int:["AI","healthcare"],hob:["hiking","wine","running"],c:"#D8FF47"},
+ {id:"u1",n:"Maya Chen",yr:"1Y",from:"Bay Area",track:"consulting",int:["AI","healthcare"],hob:["hiking","wine","running"],c:"#C8960F"},
  {id:"u2",n:"Jordan Ellis",yr:"2Y",from:"Pacific Northwest",track:"tech",int:["AI","entertainment"],hob:["pickleball","live music","film"],c:"#5FE8FF"},
  {id:"u3",n:"Priya Raghavan",yr:"1Y",from:"India",track:"banking",int:["fintech","real estate"],hob:["running","cooking","reading"],c:"#FF5CA8"},
  {id:"u4",n:"Diego Alvarez",yr:"1Y",from:"Mexico",track:"brand",int:["retail","entertainment"],hob:["soccer","cooking","karaoke"],c:"#FF9B3D"},
@@ -633,7 +630,7 @@ function checkOb(){
 $("#obNext").addEventListener("click",()=>{
   if(obIdx<OB.length-1){obIdx++;renderOb()}
   else{
-    me={id:"me",n:draft.name.trim(),yr:draft.yr,from:draft.from,track:draft.track,int:draft.int,hob:draft.hob,c:"#D8FF47",email:draft.email};
+    me={id:"me",n:draft.name.trim(),yr:draft.yr,from:draft.from,track:draft.track,int:draft.int,hob:draft.hob,c:"#C8960F",email:draft.email};
     ["u1","u2","u4"].forEach(i=>friends.add(i));
     saveState();
     enterApp();
