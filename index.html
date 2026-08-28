@@ -449,7 +449,13 @@ const el=(h)=>{const d=document.createElement("div");d.innerHTML=h.trim();return
 const initials=n=>n.split(" ").map(w=>w[0]).join("").slice(0,2).toUpperCase();
 const user=id=>USERS.find(u=>u.id===id);
 const fmtTime=t=>{let[h,m]=t.split(":").map(Number);const ap=h>=12?"pm":"am";h=h%12||12;return m?`${h}:${String(m).padStart(2,"0")}${ap}`:`${h}${ap}`};
-function avatar(u,size="sm"){return `<div class="av av-${size}" style="background:${u.c}">${initials(u.n)}</div>`}
+function whenLabel(e) {
+  const base = e.date
+    ? new Date(e.date).toLocaleDateString("en-US", {weekday:"short", month:"short", day:"numeric"})
+    : DAYS[e.d];
+  return e.source === "timeout" ? base + " · see listing" : base + " · " + fmtTime(e.s);
+}
+  function avatar(u,size="sm"){return `<div class="av av-${size}" style="background:${u.c}">${initials(u.n)}</div>`}
 function toast(msg){const t=$("#toast");t.textContent=msg;t.classList.add("on");clearTimeout(t._x);t._x=setTimeout(()=>t.classList.remove("on"),2100)}
 
 function goingList(ev){
@@ -581,7 +587,7 @@ function card(ev,showWhy){
       <div class="emoji" style="background:${ev.c}22;border:1px solid ${ev.c}55">${ev.gl}</div>
       <div style="min-width:0">
         <h3>${ev.t}</h3>
-        <div class="when">${DAYS[ev.d]} · ${fmtTime(ev.s)}</div>
+        <div class="when">${whenLabel(ev)}</div>
         <div class="where">${ev.loc}</div>
       </div>
     </div>
@@ -635,7 +641,7 @@ function openEvent(id){
       <div class="host">${hostAv} Hosted by ${ev.host}</div>
     </div>
     <div class="detail-rows">
-      <div class="drow"><div class="ico">🗓</div><div><div class="k">When</div><div class="v">${DAYS[ev.d]} at ${fmtTime(ev.s)}</div></div></div>
+      <div class="drow"><div class="ico">🗓</div><div><div class="k">When</div><div class="v">${whenLabel(ev)}</div></div></div>
       <div class="drow"><div class="ico">📍</div><div><div class="k">Where</div><div class="v">${ev.loc}</div></div></div>
       <div class="drow"><div class="ico">◎</div><div><div class="k">Category</div><div class="v">${CATS[ev.cat].l}</div></div></div>
       ${sc.parts.length?`<div class="drow"><div class="ico">✦</div><div><div class="k">Why you're seeing this</div><div class="v">${sc.parts.map(p=>p[0]).join(" · ")}</div></div></div>`:""}
