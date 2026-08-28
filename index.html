@@ -249,33 +249,43 @@ textarea.inp{resize:vertical;min-height:84px;line-height:1.45}
 }
 .grab{width:38px;height:4px;background:var(--edge);border-radius:2px;margin:6px auto 14px}
 @media(prefers-reduced-motion:reduce){*{transition:none!important}}
-  :root{
-  --void:#EEF0F3;
-  --surface:#FFFFFF;
-  --raised:#E4E9EF;
-  --edge:#C9D2DE;
-  --cream:#0B2444;
-  --dim:#5C748F;
-  --lime:#E8A020;
-  --flare:#C4392A;
-  --sky:#2D68C4;
-  --tangerine:#D98A12;
+ body[data-mode="light"]{
+  --void:#EEF0F3; --surface:#FFFFFF; --raised:#E4E9EF; --edge:#C2CCDA;
+  --cream:#0B2444; --dim:#546E8C;
+  --lime:#E0951A; --flare:#C4392A; --sky:#2D68C4; --tangerine:#B0651C;
+  --on-accent:#241500; --accent-ink:#8A5A0C; --nav-ink:#0B2444;
 }
-body,button,input,textarea,select{font-family:Archivo,system-ui,sans-serif}
+body[data-mode="dark"]{
+  --void:#0B1A2E; --surface:#132840; --raised:#1B3452; --edge:#2C4A6E;
+  --cream:#EAF1F9; --dim:#8AA4C2;
+  --lime:#F2B33D; --flare:#FF7A6B; --sky:#5FB4F5; --tangerine:#FFA94D;
+  --on-accent:#1A1200; --accent-ink:#F2B33D; --nav-ink:#F2B33D;
+}
+body{font-family:Archivo,system-ui,sans-serif;transition:background .18s,color .18s}
+button,input,textarea,select{font-family:Archivo,system-ui,sans-serif}
 h1,h2,.empty b{font-family:Anton,Impact,sans-serif;font-weight:400;letter-spacing:.012em;text-transform:uppercase}
 h3{font-family:Archivo,sans-serif;font-weight:700;letter-spacing:-.01em;text-transform:none}
-.av,.stack .more{font-family:Anton,Impact,sans-serif;font-weight:400;color:#fff}
+.av,.stack .more,.rank{font-family:Anton,Impact,sans-serif;font-weight:400;color:#fff}
 .mono,.eyebrow,.when,.tag,.pill,.flabel,.cmeta,.drow .k,.pv-meta,.mini,.counter{font-family:"IBM Plex Mono",monospace}
 
-.blob,.hero .blob,.preview .blob{filter:none;opacity:.15}
-
+.blob,.hero .blob,.preview .blob{filter:none;opacity:.14}
+.when{color:var(--accent-ink)}
+.nav button[aria-current="true"]{color:var(--nav-ink)}
+.btn-lime,.chip[aria-pressed="true"],.rsvp[aria-pressed="true"],.mini.on,.toast{color:var(--on-accent)}
 .btn-flare,.mini.flare,.chip.pick[aria-pressed="true"]{color:#fff}
 .nav{background:var(--surface);backdrop-filter:none}
-.inp::placeholder{color:#93A4B8}
-.blurb{color:var(--cream);opacity:.82}
-.why b{color:var(--sky);border-color:rgba(45,104,196,.35);background:rgba(45,104,196,.08)}
-.why b.hot{color:var(--flare);border-color:rgba(196,57,42,.35);background:rgba(196,57,42,.08)}
-.sheet-bg{background:rgba(11,36,68,.5)}
+.inp::placeholder{color:var(--dim);opacity:.75}
+.blurb{color:var(--cream);opacity:.85}
+.why b{color:var(--sky);border-color:currentColor;background:transparent}
+.why b.hot{color:var(--flare)}
+.sheet-bg{background:rgba(4,12,24,.55)}
+
+#modeBtn{
+  position:fixed;right:16px;bottom:calc(var(--nav-h) + 14px);z-index:70;
+  width:42px;height:42px;border-radius:50%;border:1.5px solid var(--edge);
+  background:var(--surface);color:var(--cream);font-size:17px;line-height:1;
+  display:grid;place-items:center;box-shadow:0 2px 10px rgba(0,0,0,.16);
+}
 </style>
 </head>
 <body>
@@ -867,7 +877,18 @@ $("#nav").addEventListener("click",e=>{
 });
 
 loadEvents();
-
+function setMode(m){
+  document.body.dataset.mode = m;
+  document.getElementById("modeBtn").textContent = m === "dark" ? "☀" : "☾";
+  try { localStorage.setItem("quad_mode", m); } catch {}
+}
+document.getElementById("modeBtn").addEventListener("click", () => {
+  setMode(document.body.dataset.mode === "dark" ? "light" : "dark");
+});
+let saved = "light";
+try { saved = localStorage.getItem("quad_mode") || "light"; } catch {}
+setMode(saved);
 </script>
+  <button id="modeBtn" aria-label="Toggle light or dark mode">☾</button>
 </body>
 </html>
