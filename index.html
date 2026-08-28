@@ -249,6 +249,33 @@ textarea.inp{resize:vertical;min-height:84px;line-height:1.45}
 }
 .grab{width:38px;height:4px;background:var(--edge);border-radius:2px;margin:6px auto 14px}
 @media(prefers-reduced-motion:reduce){*{transition:none!important}}
+  :root{
+  --void:#EEF0F3;
+  --surface:#FFFFFF;
+  --raised:#E4E9EF;
+  --edge:#C9D2DE;
+  --cream:#0B2444;
+  --dim:#5C748F;
+  --lime:#E8A020;
+  --flare:#C4392A;
+  --sky:#2D68C4;
+  --tangerine:#D98A12;
+}
+body,button,input,textarea,select{font-family:Archivo,system-ui,sans-serif}
+h1,h2,.empty b{font-family:Anton,Impact,sans-serif;font-weight:400;letter-spacing:.012em;text-transform:uppercase}
+h3{font-family:Archivo,sans-serif;font-weight:700;letter-spacing:-.01em;text-transform:none}
+.av,.stack .more{font-family:Anton,Impact,sans-serif;font-weight:400;color:#fff}
+.mono,.eyebrow,.when,.tag,.pill,.flabel,.cmeta,.drow .k,.pv-meta,.mini,.counter{font-family:"IBM Plex Mono",monospace}
+
+.blob,.hero .blob,.preview .blob{filter:none;opacity:.15}
+
+.btn-flare,.mini.flare,.chip.pick[aria-pressed="true"]{color:#fff}
+.nav{background:var(--surface);backdrop-filter:none}
+.inp::placeholder{color:#93A4B8}
+.blurb{color:var(--cream);opacity:.82}
+.why b{color:var(--sky);border-color:rgba(45,104,196,.35);background:rgba(45,104,196,.08)}
+.why b.hot{color:var(--flare);border-color:rgba(196,57,42,.35);background:rgba(196,57,42,.08)}
+.sheet-bg{background:rgba(11,36,68,.5)}
 </style>
 </head>
 <body>
@@ -374,7 +401,7 @@ textarea.inp{resize:vertical;min-height:84px;line-height:1.45}
 
 <script>
 /* ================= DATA ================= */
-const PALETTE=["#F2A900","#4E9BFF","#6FE3C4","#FFD666","#9BB8FF","#FF8FA3"];
+const PALETTE=["#C4392A","#0E8C93","#2D68C4","#6B4FBF","#1E8E5A","#B0651C"];
 const EMOJIS=["🍻","🥾","🏓","🍷","📊","🎤","🌮","⚽","🎨","🔥","🪔","💃","📱","💸","🏃","🎿"];
 
 
