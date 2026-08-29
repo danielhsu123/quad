@@ -716,7 +716,6 @@ $("#obNext").addEventListener("click",async()=>{
   if(r.error){toast(r.error);return}
   await loadMe(r.id);enterApp();
 });
-});
 $("#obBack").addEventListener("click",()=>{if(obIdx>0){obIdx--;renderOb()}else show("s-auth")});
 $("#goCreate").addEventListener("click",()=>{obIdx=0;renderOb();show("s-onboard")});
 $("#goSignin").addEventListener("click",()=>show("s-signin"));
