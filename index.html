@@ -402,8 +402,8 @@ body[data-mode="light"] .tag{font-weight:600}
       <div class="swatches" id="cvColor"></div></div>
     <div class="two">
       <div class="field"><label for="cvDay">Day</label>
-        <select class="inp" id="cvDay"></select></div>
-      <div class="field"><label for="cvTime">Start</label>
+        <div class="field"><label for="cvDay">Date</label>
+  <input class="inp" id="cvDay" type="date"></div>
         <input class="inp" id="cvTime" type="time" value="18:30"></div>
     </div>
     <div class="field"><label for="cvLoc">Where</label>
@@ -917,8 +917,7 @@ $("#fSearch").addEventListener("input",e=>renderFriends(e.target.value));
 /* ---------- create ---------- */
 let cv={gl:"🍻",c:"#FF5CA8",inv:new Set()};
 function renderCreate(){
-  $("#cvDay").innerHTML=DAYS.map((d,i)=>`<option value="${i}">${d}</option>`).join("");
-  $("#cvCat").innerHTML=Object.entries(CATS).map(([k,v])=>`<option value="${k}">${v.l}</option>`).join("");
+if(!$("#cvDay").value) $("#cvDay").value=new Date(Date.now()+864e5).toISOString().slice(0,10);  $("#cvCat").innerHTML=Object.entries(CATS).map(([k,v])=>`<option value="${k}">${v.l}</option>`).join("");
   $("#cvEmoji").innerHTML=EMOJIS.map(e=>`<button class="ep" data-gl="${e}" aria-pressed="${cv.gl===e}">${e}</button>`).join("");
   $("#cvColor").innerHTML=PALETTE.map(c=>`<button class="sw" data-c="${c}" style="background:${c}" aria-pressed="${cv.c===c}"></button>`).join("");
   $("#cvInvite").innerHTML=USERS.filter(u=>friends.has(u.id)).map(u=>
@@ -928,7 +927,9 @@ function renderCreate(){
 }
 function paintPreview(){
   const t=$("#cvTitle")?.value||"Your event";
-  const d=DAYS[$("#cvDay").value||0],tm=fmtTime($("#cvTime").value||"18:30");
+const dv=$("#cvDay").value;
+const d=dv?new Date(dv+"T12:00").toLocaleDateString("en-US",{weekday:"short",month:"short",day:"numeric"}):"Pick a date";
+const tm=fmtTime($("#cvTime").value||"18:30");
   const loc=$("#cvLoc")?.value||"Somewhere on campus";
   $("#cvPreview").innerHTML=`<div class="pv-art">
     <div class="blob" style="background:${cv.c}"></div>
@@ -949,10 +950,7 @@ $("#cvInvite").addEventListener("click",e=>{const b=e.target.closest("[data-cinv
 $("#cvSubmit").addEventListener("click",async()=>{
   const t=$("#cvTitle").value.trim();
   if(!t){toast("Give it a name first");$("#cvTitle").focus();return}
-  const dayIdx=+$("#cvDay").value;
-  const base=new Date(); 
-  base.setDate(base.getDate()+((dayIdx-((base.getDay()+6)%7))+7)%7);
-  const startsAt=new Date(base.toISOString().slice(0,10)+"T"+$("#cvTime").value).toISOString();
+  const startsAt=new Date($("#cvDay").value+"T"+$("#cvTime").value).toISOString();
 
   $("#cvSubmit").disabled=true;$("#cvSubmit").textContent="Posting…";
   const newId=await saveEvent({t,gl:cv.gl,p:cv.p,cat:$("#cvCat").value,
