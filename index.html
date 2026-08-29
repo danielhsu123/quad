@@ -338,7 +338,9 @@ body[data-mode="light"] .tag{font-weight:600}
   <div class="ob-step">
     <h2>Welcome back</h2>
     <p class="sub">Pick a demo account to explore with — each one has a different profile, so the recommendations change.</p>
-    <div class="plist" style="padding-left:0;padding-right:0" id="signinList"></div>
+    <div class="field"><label for="siEmail">Email</label><input class="inp" id="siEmail" type="email"></div>
+<div class="field"><label for="siPw">Password</label><input class="inp" id="siPw" type="password"></div>
+<button class="btn btn-lime" id="siGo">Sign in</button>
   </div>
 </section>
 
@@ -722,19 +724,10 @@ $("#goSignin").addEventListener("click",()=>show("s-signin"));
 document.querySelectorAll("[data-back]").forEach(b=>b.addEventListener("click",()=>show(b.dataset.back)));
 
 /* ---------- sign in ---------- */
-$("#signinList").innerHTML=USERS.slice(0,3).map(u=>`
-  <button class="prow" data-signin="${u.id}" style="width:100%;text-align:left">
-    ${avatar(u,"md")}
-    <div><div class="nm">${u.n}</div><div class="mt">${u.yr} · ${TRACKS[u.track]} · from ${u.from}</div></div>
-    <span class="act mini">Use</span>
-  </button>`).join("");
-$("#signinList").addEventListener("click",e=>{
-  const b=e.target.closest("[data-signin]");if(!b)return;
-  const u=user(b.dataset.signin);
-  me={...u,id:"me",realId:u.id};
-  USERS.filter(x=>x.id!==u.id).slice(0,3).forEach(x=>friends.add(x.id));
-  saveState();
-  enterApp();
+$("#siGo").addEventListener("click",async()=>{
+  const r=await signIn($("#siEmail").value,$("#siPw").value);
+  if(r.error){toast(r.error);return}
+  await loadMe(r.id);enterApp();
 });
 
 function enterApp(){renderHome();renderBrowse();renderFriends();renderProfile();renderCreate();show("s-home")}
@@ -988,12 +981,14 @@ function renderProfile(){
       :`<div class="empty"><b>Nothing yet</b>RSVP to something and it lands here.</div>`}</div>
     ${maybe.length?`<div class="sechead"><h3>Maybe</h3></div><div class="feed">${maybe.map(e=>card(e,false)).join("")}</div>`:""}
     <div class="pad" style="margin-top:26px"><button class="btn btn-ghost" id="logout">Sign out</button></div>`;
-  $("#logout").addEventListener("click",()=>{
+  $("#logout").addEventListener("click",async()=>{
   localStorage.removeItem(STORE);
+  await db.auth.signOut();
   me=null;rsvps={};friends=new Set();invitedTo={};obIdx=0;
+  EVENTS=EVENTS.filter(e=>e.source!=="quad");
   draft={name:"",email:"",yr:"1Y",from:null,track:null,int:[],hob:[]};
   show("s-auth");
-  });
+});
 }
 $("#toProfileAv").addEventListener("click",()=>show("s-profile"));
 
@@ -1009,7 +1004,7 @@ $("#nav").addEventListener("click",e=>{
    show(b.dataset.go);
 });
 
-loadEvents().then(()=>{ if(restoreState()) enterApp(); });
+loadEvents().then(restoreSession);
 function setMode(m){
   document.body.dataset.mode = m;
   document.getElementById("modeBtn").textContent = m === "dark" ? "☀" : "☾";
