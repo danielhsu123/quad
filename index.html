@@ -654,6 +654,7 @@ const OB=[
  {k:"name",h:"First, who are you?",s:"This is how you'll show up on guest lists.",
   f:`<div class="field"><label for="obName">Full name</label><input class="inp" id="obName" placeholder="Alex Rivera"></div>
      <div class="field"><label for="obEmail">Anderson email</label><input class="inp" id="obEmail" type="email" placeholder="arivera.mba2028@anderson.ucla.edu"></div>
+     <div class="field"><label for="obPw">Password</label><input class="inp" id="obPw" type="password" placeholder="At least 6 characters"></div>
      <div class="field"><label for="obYear">Year</label><select class="inp" id="obYear"><option value="1Y">First year</option><option value="2Y">Second year</option></select></div>`},
  {k:"from",h:"Where are you from?",s:"We use this to surface cultural events and to find people who took the same long flight as you.",f:`<div class="chips" id="obFrom"></div>`},
  {k:"track",h:"What are you recruiting for?",s:"Drives which info sessions, coffee chats, and treks get pushed to the top of your feed.",f:`<div class="chips" id="obTrack"></div>`},
@@ -672,7 +673,10 @@ function renderOb(){
     $("#obName").value=draft.name;$("#obEmail").value=draft.email;$("#obYear").value=draft.yr;
     $("#obName").addEventListener("input",e=>{draft.name=e.target.value;checkOb()});
     $("#obEmail").addEventListener("input",e=>{draft.email=e.target.value;checkOb()});
+    $("#obPw").value=draft.pw||"";
+    $("#obPw").addEventListener("input",e=>{draft.pw=e.target.value;checkOb()});
     $("#obYear").addEventListener("change",e=>draft.yr=e.target.value);
+    
   }
   if(st.k==="from")chipSet("#obFrom",REGIONS,()=>draft.from,v=>{draft.from=v},true);
   if(st.k==="track")chipSet("#obTrack",Object.keys(TRACKS),()=>draft.track,v=>{draft.track=v},true,k=>TRACKS[k]);
@@ -695,7 +699,7 @@ function chipSet(sel,items,get,set,single,label,pink){
 }
 function checkOb(){
   const st=OB[obIdx];let ok=false,hint="";
-  if(st.k==="name")ok=draft.name.trim().length>1&&draft.email.includes("@");
+  if(st.k==="name")ok=draft.name.trim().length>1&&draft.email.includes("@")&&(draft.pw||"").length>=6;
   if(st.k==="from"){ok=!!draft.from}
   if(st.k==="track"){ok=!!draft.track}
   if(st.k==="int"){ok=draft.int.length>=2;hint=`${draft.int.length} selected · 2 minimum`}
@@ -704,14 +708,14 @@ function checkOb(){
   $("#obNext").textContent=obIdx===OB.length-1?"Finish and see my feed":"Continue";
   $("#obHint").textContent=hint;
 }
-$("#obNext").addEventListener("click",()=>{
-  if(obIdx<OB.length-1){obIdx++;renderOb()}
-  else{
-    me={id:"me",n:draft.name.trim(),yr:draft.yr,from:draft.from,track:draft.track,int:draft.int,hob:draft.hob,c:"#C8960F",email:draft.email};
-    ["u1","u2","u4"].forEach(i=>friends.add(i));
-    saveState();
-    enterApp();
-  }
+$("#obNext").addEventListener("click",async()=>{
+  if(obIdx<OB.length-1){obIdx++;renderOb();return}
+  $("#obNext").disabled=true;$("#obNext").textContent="Creating account…";
+  const r=await signUp(draft.email,draft.pw,draft);
+  $("#obNext").disabled=false;$("#obNext").textContent="Finish and see my feed";
+  if(r.error){toast(r.error);return}
+  await loadMe(r.id);enterApp();
+});
 });
 $("#obBack").addEventListener("click",()=>{if(obIdx>0){obIdx--;renderOb()}else show("s-auth")});
 $("#goCreate").addEventListener("click",()=>{obIdx=0;renderOb();show("s-onboard")});
