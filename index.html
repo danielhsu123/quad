@@ -549,13 +549,15 @@ async function loadPeople(){
   });
 }
 async function loadQuadEvents(){
-  const {data}=await db.from("user_events").select("*, profiles(name)");
+  const {data,error}=await db.from("user_events").select("*");
+  if(error){console.error("loadQuadEvents:",error);return}
   const mapped=(data||[]).map(e=>{
     const w=new Date(e.starts_at);
+    const h=(e.host_id===me?.id)?me:USERS.find(u=>u.id===e.host_id);
     return fixEvent({id:e.id,t:e.title,gl:e.glyph,p:e.palette,
       c:PALETTE[e.palette%PALETTE.length],cat:e.category,date:e.starts_at,
       d:(w.getDay()+6)%7,s:w.toTimeString().slice(0,5),loc:e.location||"TBD",
-      host:e.profiles?.name||"A classmate",hostId:e.host_id,
+      host:h?h.n:"A classmate",hostId:e.host_id,
       desc:e.descr||"No details yet.",tags:[],going:[],source:"quad"});
   });
   EVENTS=EVENTS.filter(e=>e.source!=="quad").concat(mapped);
