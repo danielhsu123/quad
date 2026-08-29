@@ -619,7 +619,10 @@ function whenLabel(e) {
     : DAYS[e.d];
   return e.source === "timeout" ? base + " · see listing" : base + " · " + fmtTime(e.s);
 }
-  function avatar(u,size="sm"){return `<div class="av av-${size}" style="background:${u.c}">${initials(u.n)}</div>`}
+function avatar(u,size="sm"){
+  if(!u) return `<div class="av av-${size}" style="background:var(--edge)">?</div>`;
+  return `<div class="av av-${size}" style="background:${u.c||PALETTE[0]}">${initials(u.n||"?")}</div>`;
+}
 function toast(msg){const t=$("#toast");t.textContent=msg;t.classList.add("on");clearTimeout(t._x);t._x=setTimeout(()=>t.classList.remove("on"),2100)}
 
 function goingList(ev){
@@ -738,7 +741,7 @@ function enterApp(){renderHome();renderBrowse();renderFriends();renderProfile();
 function card(ev,showWhy){
   const sc=score(ev);
   const gl=goingList(ev);
-  const shown=gl.slice(0,4).map(id=>avatar(user(id)||me,"sm")).join("");
+  const shown=gl.map(id=>id===me.id?me:user(id)).filter(Boolean).slice(0,4).map(u=>avatar(u,"sm")).join("");
   const more=gl.length>4?`<div class="more">+${gl.length-4}</div>`:"";
   const names=gl.length?`${gl.length} going`:"Be the first";
   const why=showWhy&&sc.parts.length?`<div class="why">${sc.parts.slice(0,3).map(([t,hot])=>`<b class="${hot?"hot":""}">${t}</b>`).join("")}</div>`:"";
@@ -814,8 +817,8 @@ function openEvent(id){
     <p class="blurb">${ev.desc}</p>
     <div class="guests">
       <div class="eyebrow">${gl.length} going${inv.length?` · ${inv.length} invited`:""}</div>
-      <div class="guest-grid">${gl.map(uid=>{const u=uid===me.id?me:user(uid);
-        return `<span class="guest">${avatar(u,"sm")}${u.n}${friends.has(uid)?" ✦":""}</span>`}).join("")||
+            <div class="guest-grid">${gl.map(uid=>{const u=uid===me.id?me:user(uid);
+        return u?`<span class="guest">${avatar(u,"sm")}${u.n}${friends.has(uid)?" ✦":""}</span>`:""}).join("")||
         `<span class="guest" style="color:var(--dim)">Nobody yet — go first</span>`}</div>
     </div>`;
   const cur=rsvps[ev.id];
