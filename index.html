@@ -510,7 +510,79 @@ let prevScreen="s-home";
     const SUPABASE_URL = "https://utkjrdmhfpcwqodksunk.supabase.co";
 const SUPABASE_ANON_KEY = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InV0a2pyZG1oZnBjd3FvZGtzdW5rIiwicm9sZSI6ImFub24iLCJpYXQiOjE3ODgwMjkzNDIsImV4cCI6MjEwMzYwNTM0Mn0.NI_A077Bd5wKxeNfw9Swpo3PiWhVhu5SsVI2CqAnx5U";
 const db = window.supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
-console.log("Supabase client ready:", !!db);
+async function signUp(email,password,d){
+  const {data,error}=await db.auth.signUp({email,password});
+  if(error) return {error:error.message};
+  if(!data.user) return {error:"No user returned"};
+  const {error:pErr}=await db.from("profiles").insert({
+    id:data.user.id, name:d.name.trim(), year:d.yr, from_region:d.from,
+    track:d.track, interests:d.int, hobbies:d.hob });
+  if(pErr) return {error:pErr.message};
+  return {id:data.user.id};
+}
+async function signIn(email,password){
+  const {data,error}=await db.auth.signInWithPassword({email,password});
+  if(error) return {error:error.message};
+  return {id:data.user.id};
+}
+async function loadMe(userId){
+  const {data:p,error}=await db.from("profiles").select("*").eq("id",userId).single();
+  if(error||!p){console.error("No profile:",error);return false}
+  me={id:userId,n:p.name,yr:p.year,from:p.from_region,track:p.track,
+      int:p.interests||[],hob:p.hobbies||[],c:PALETTE[1]};
+  const {data:r}=await db.from("rsvps").select("event_id,status").eq("user_id",userId);
+  rsvps={}; (r||[]).forEach(x=>rsvps[x.event_id]=x.status);
+  const {data:f}=await db.from("friendships").select("friend_id").eq("user_id",userId);
+  friends=new Set((f||[]).map(x=>x.friend_id));
+  await loadPeople(); await loadQuadEvents();
+  return true;
+}
+async function loadPeople(){
+  const {data}=await db.from("profiles").select("*");
+  USERS.length=0;
+  (data||[]).forEach((p,i)=>{
+    if(p.id===me?.id) return;
+    USERS.push({id:p.id,n:p.name,yr:p.year,from:p.from_region,track:p.track,
+      int:p.interests||[],hob:p.hobbies||[],c:PALETTE[i%PALETTE.length]});
+  });
+}
+async function loadQuadEvents(){
+  const {data}=await db.from("user_events").select("*, profiles(name)");
+  const mapped=(data||[]).map(e=>{
+    const w=new Date(e.starts_at);
+    return fixEvent({id:e.id,t:e.title,gl:e.glyph,p:e.palette,
+      c:PALETTE[e.palette%PALETTE.length],cat:e.category,date:e.starts_at,
+      d:(w.getDay()+6)%7,s:w.toTimeString().slice(0,5),loc:e.location||"TBD",
+      host:e.profiles?.name||"A classmate",hostId:e.host_id,
+      desc:e.descr||"No details yet.",tags:[],going:[],source:"quad"});
+  });
+  EVENTS=EVENTS.filter(e=>e.source!=="quad").concat(mapped);
+}
+async function saveRsvp(id,status){
+  if(!me) return;
+  if(!status) await db.from("rsvps").delete().eq("user_id",me.id).eq("event_id",id);
+  else await db.from("rsvps").upsert({user_id:me.id,event_id:id,status});
+}
+async function saveFriend(fid,add){
+  if(!me) return;
+  if(add) await db.from("friendships").upsert({user_id:me.id,friend_id:fid});
+  else await db.from("friendships").delete().eq("user_id",me.id).eq("friend_id",fid);
+}
+async function saveEvent(o){
+  const {data,error}=await db.from("user_events").insert({
+    host_id:me.id,title:o.t,glyph:o.gl,palette:o.p??0,category:o.cat,
+    starts_at:o.startsAt,location:o.loc,descr:o.desc}).select().single();
+  if(error){console.error(error);toast("Could not save event");return null}
+  await loadQuadEvents();
+  return data.id;
+}
+async function restoreSession(){
+  const {data}=await db.auth.getSession();
+  if(!data.session) return false;
+  const ok=await loadMe(data.session.user.id);
+  if(ok) enterApp();
+  return ok;
+}
   const STORE="quad_v1";
 function saveState(){
   if(!me) return;
