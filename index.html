@@ -436,7 +436,8 @@ body[data-mode="light"] .tag{font-weight:600}
 <div class="sheet" id="sheet"><div class="sheet-bg" id="sheetBg"></div><div class="sheet-in"><div class="grab"></div><div id="sheetBody"></div></div></div>
 
     <button id="modeBtn" aria-label="Toggle light or dark mode">☾</button>
-<script>
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+  <script>
 /* ================= DATA ================= */
 const PALETTE=["#C4392A","#0E8C93","#2D68C4","#6B4FBF","#1E8E5A","#B0651C"];
 const EMOJIS=["🍻","🥾","🏓","🍷","📊","🎤","🌮","⚽","🎨","🔥","🪔","💃","📱","💸","🏃","🎿"];
@@ -506,6 +507,10 @@ let invitedTo={};       // eventId -> [userIds]
 let filters={cat:null,q:""};
 let currentEvent=null;
 let prevScreen="s-home";
+    const SUPABASE_URL = "https://utkjrdmhfpcwqodksunk.supabase.co";
+const SUPABASE_ANON_KEY = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InV0a2pyZG1oZnBjd3FvZGtzdW5rIiwicm9sZSI6ImFub24iLCJpYXQiOjE3ODgwMjkzNDIsImV4cCI6MjEwMzYwNTM0Mn0.NI_A077Bd5wKxeNfw9Swpo3PiWhVhu5SsVI2CqAnx5U";
+const db = window.supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
+console.log("Supabase client ready:", !!db);
   const STORE="quad_v1";
 function saveState(){
   if(!me) return;
