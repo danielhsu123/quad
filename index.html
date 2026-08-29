@@ -830,7 +830,8 @@ function openEvent(id){
   dock.addEventListener("click",e=>{
     const r=e.target.closest("[data-r]");
     if(r){rsvps[ev.id]=rsvps[ev.id]===r.dataset.r?null:r.dataset.r;
-      toast(rsvps[ev.id]==="going"?"You're on the list":rsvps[ev.id]==="maybe"?"Marked maybe":"RSVP updated");
+      saveRsvp(ev.id, rsvps[ev.id]);
+          toast(rsvps[ev.id]==="going"?"You're on the list":rsvps[ev.id]==="maybe"?"Marked maybe":"RSVP updated");
       saveState();
           openEvent(ev.id);renderHome();renderBrowse();renderProfile();return}
     if(e.target.closest("#inviteBtn"))openInvite(ev);
@@ -905,8 +906,8 @@ function renderFriends(q=""){
 }
 $("#friendsBody").addEventListener("click",e=>{
   const a=e.target.closest("[data-friend]"),r=e.target.closest("[data-unfriend]");
-  if(a){friends.add(a.dataset.friend);toast(`Added ${user(a.dataset.friend).n.split(" ")[0]}`)}
-  if(r){friends.delete(r.dataset.unfriend)}
+   if(a){friends.add(a.dataset.friend);saveFriend(a.dataset.friend,true);toast("Added")}
+  if(r){friends.delete(r.dataset.unfriend);saveFriend(r.dataset.unfriend,false)}
   if(a||r){renderFriends($("#fSearch").value);renderHome();saveState()}
 });
 $("#fSearch").addEventListener("input",e=>renderFriends(e.target.value));
@@ -943,22 +944,26 @@ $("#cvColor").addEventListener("click",e=>{const b=e.target.closest("[data-c]");
 $("#cvInvite").addEventListener("click",e=>{const b=e.target.closest("[data-cinv]");if(!b)return;
   const id=b.dataset.cinv;cv.inv.has(id)?cv.inv.delete(id):cv.inv.add(id);
   b.setAttribute("aria-pressed",cv.inv.has(id))});
-$("#cvSubmit").addEventListener("click",()=>{
+$("#cvSubmit").addEventListener("click",async()=>{
   const t=$("#cvTitle").value.trim();
   if(!t){toast("Give it a name first");$("#cvTitle").focus();return}
-  const id="ev"+Date.now();
-  EVENTS.unshift({id,t,gl:cv.gl,c:cv.c,cat:$("#cvCat").value,d:+$("#cvDay").value,s:$("#cvTime").value,
-    loc:$("#cvLoc").value||"TBD",host:me.n,hostId:null,desc:$("#cvDesc").value||"No details yet.",tags:[],going:[],source:"mine"});
-  rsvps[id]="going";
-  invitedTo[id]=[...cv.inv];
-  const c=cv.inv.size;
-  cv={gl:"🍻",c:"#FF5CA8",inv:new Set()};
+  const dayIdx=+$("#cvDay").value;
+  const base=new Date(); 
+  base.setDate(base.getDate()+((dayIdx-((base.getDay()+6)%7))+7)%7);
+  const startsAt=new Date(base.toISOString().slice(0,10)+"T"+$("#cvTime").value).toISOString();
+
+  $("#cvSubmit").disabled=true;$("#cvSubmit").textContent="Posting…";
+  const newId=await saveEvent({t,gl:cv.gl,p:cv.p,cat:$("#cvCat").value,
+    startsAt,loc:$("#cvLoc").value||"TBD",desc:$("#cvDesc").value});
+  $("#cvSubmit").disabled=false;$("#cvSubmit").textContent="Create and send invites";
+  if(!newId) return;
+
+  rsvps[newId]="going"; saveRsvp(newId,"going");
+  cv={gl:"🍻",p:0,inv:new Set()};
   ["#cvTitle","#cvLoc","#cvDesc"].forEach(s=>$(s).value="");
   renderCreate();renderHome();renderBrowse();renderProfile();
-
-  saveState();
-  toast(c?`Live — ${c} invite${c>1?"s":""} sent`:"Your event is live");
-  prevScreen="s-home";openEvent(id);
+  toast("Your event is live");
+  prevScreen="s-home";openEvent(newId);
 });
 
 /* ---------- profile ---------- */
