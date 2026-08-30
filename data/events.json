@@ -14,14 +14,7 @@
     "tags": [
       "wine"
     ],
-    "going": [
-      "u2",
-      "u4",
-      "u7",
-      "u9",
-      "u12",
-      "u10"
-    ],
+    "going": [],
     "source": "anderson"
   },
   {
@@ -38,11 +31,7 @@
     "desc": "Firm overview, then open networking with the LA office. Business casual. They do track attendance.",
     "track": "consulting",
     "tags": [],
-    "going": [
-      "u1",
-      "u6",
-      "u9"
-    ],
+    "going": [],
     "source": "anderson"
   },
   {
@@ -59,10 +48,7 @@
     "desc": "Two frameworks, three live cases, pizza. Bring a notebook and a partner if you have one.",
     "track": "consulting",
     "tags": [],
-    "going": [
-      "u1",
-      "u6"
-    ],
+    "going": [],
     "source": "anderson"
   },
   {
@@ -80,11 +66,7 @@
     "tags": [
       "wine"
     ],
-    "going": [
-      "u1",
-      "u9",
-      "u5"
-    ],
+    "going": [],
     "source": "anderson"
   },
   {
@@ -97,16 +79,12 @@
     "s": "06:30",
     "loc": "Temescal Canyon trailhead",
     "host": "Lena Petrova",
-    "hostId": "u6",
+    "hostId": null,
     "desc": "Up for sunrise, down by 8:30, burritos after. It's 3 miles and not that steep, I promise. Carpools leaving from Weyburn at 5:45.",
     "tags": [
       "hiking"
     ],
-    "going": [
-      "u6",
-      "u1",
-      "u8"
-    ],
+    "going": [],
     "source": "anderson"
   },
   {
@@ -124,11 +102,7 @@
     "tags": [
       "pickleball"
     ],
-    "going": [
-      "u2",
-      "u7",
-      "u11"
-    ],
+    "going": [],
     "source": "anderson"
   },
   {
@@ -145,10 +119,7 @@
     "desc": "Division overview and Q&A with the LA team. Lunch provided.",
     "track": "banking",
     "tags": [],
-    "going": [
-      "u3",
-      "u11"
-    ],
+    "going": [],
     "source": "anderson"
   },
   {
@@ -164,11 +135,7 @@
     "hostId": null,
     "desc": "Low key, open to allies, first drink on the club.",
     "tags": [],
-    "going": [
-      "u2",
-      "u10",
-      "u12"
-    ],
+    "going": [],
     "source": "anderson"
   },
   {
@@ -184,10 +151,7 @@
     "hostId": null,
     "desc": "Alumni from six firms, tacos from Leo's, and a salsa lesson at 8 that nobody expects.",
     "tags": [],
-    "going": [
-      "u4",
-      "u9"
-    ],
+    "going": [],
     "region": "Mexico",
     "source": "anderson"
   },
@@ -204,10 +168,7 @@
     "hostId": null,
     "desc": "Three alums, one hour, honest answers about the first two years out.",
     "tags": [],
-    "going": [
-      "u5",
-      "u8"
-    ],
+    "going": [],
     "region": "Nigeria",
     "source": "anderson"
   },
@@ -226,10 +187,7 @@
     "tags": [
       "cooking"
     ],
-    "going": [
-      "u3",
-      "u8"
-    ],
+    "going": [],
     "region": "India",
     "source": "anderson"
   },
@@ -247,11 +205,7 @@
     "desc": "Four Snap PMs, two of them Anderson alums, on how the interview loop actually works.",
     "track": "tech",
     "tags": [],
-    "going": [
-      "u2",
-      "u10",
-      "u7"
-    ],
+    "going": [],
     "source": "anderson"
   },
   {
@@ -268,11 +222,7 @@
     "desc": "We take a real Series A term sheet apart line by line. Bring your laptop.",
     "track": "pe",
     "tags": [],
-    "going": [
-      "u5",
-      "u7",
-      "u3"
-    ],
+    "going": [],
     "source": "anderson"
   },
   {
@@ -285,18 +235,13 @@
     "s": "21:00",
     "loc": "Rosen Karaoke, Koreatown",
     "host": "Grace Kim",
-    "hostId": "u10",
+    "hostId": null,
     "desc": "Room booked 9 to midnight, $12 a head, no judgment and no ballads before 10.",
     "tags": [
       "karaoke",
       "live music"
     ],
-    "going": [
-      "u10",
-      "u4",
-      "u2",
-      "u12"
-    ],
+    "going": [],
     "source": "anderson"
   },
   {
@@ -309,16 +254,12 @@
     "s": "11:00",
     "loc": "ROW DTLA",
     "host": "Diego Alvarez",
-    "hostId": "u4",
+    "hostId": null,
     "desc": "Eight stalls, one shared table, we split everything. Metro from Westwood at 10.",
     "tags": [
       "cooking"
     ],
-    "going": [
-      "u4",
-      "u9",
-      "u12"
-    ],
+    "going": [],
     "source": "anderson"
   },
   {
@@ -336,11 +277,7 @@
     "tags": [
       "soccer"
     ],
-    "going": [
-      "u4",
-      "u9",
-      "u6"
-    ],
+    "going": [],
     "source": "anderson"
   },
   {
@@ -353,17 +290,13 @@
     "s": "11:00",
     "loc": "Getty Center",
     "host": "Nina Alvarado",
-    "hostId": "u12",
+    "hostId": null,
     "desc": "Free entry, bring a pad. No skill required, that's the whole point.",
     "tags": [
       "photography",
       "reading"
     ],
-    "going": [
-      "u12",
-      "u8",
-      "u10"
-    ],
+    "going": [],
     "source": "anderson"
   },
   {
@@ -381,11 +314,7 @@
     "tags": [
       "running"
     ],
-    "going": [
-      "u1",
-      "u3",
-      "u8"
-    ],
+    "going": [],
     "source": "anderson"
   },
   {
@@ -403,11 +332,7 @@
     "tags": [
       "skiing"
     ],
-    "going": [
-      "u7",
-      "u2",
-      "u11"
-    ],
+    "going": [],
     "source": "anderson"
   },
   {
@@ -420,58 +345,91 @@
     "s": "19:30",
     "loc": "Dockweiler Pit 42",
     "host": "Tyler Brooks",
-    "hostId": "u7",
+    "hostId": null,
     "desc": "Wood's covered. Bring a chair, bring a six pack, bring someone. Pit 42, look for the loud one.",
     "tags": [
       "surfing",
       "live music"
     ],
-    "going": [
-      "u7",
-      "u2",
-      "u12",
-      "u11"
-    ],
+    "going": [],
     "source": "anderson"
   },
   {
-    "id": "to-2026-08-27-0",
-    "t": "Taqueando After Dark",
-    "gl": "🌮",
-    "p": 4,
-    "cat": "food",
-    "date": "2026-08-27T00:00:00.000Z",
+    "id": "sig1",
+    "t": "John Wooden Global Leadership Award",
+    "gl": "🏆",
+    "p": 1,
+    "cat": "networking",
+    "date": "2026-10-08T18:00:00",
     "d": 3,
-    "s": "19:00",
-    "loc": "Level 8 DTLA",
-    "host": "Time Out LA",
+    "s": "18:00",
+    "loc": "Los Angeles",
+    "host": "UCLA Anderson",
     "hostId": null,
-    "desc": "Two-night taco fest with top taqueros, chef Ray Garcia, regional Mexican bites and a raffle benefiting CIELO.",
+    "desc": "Honoring Cori Close, UCLA Women's Basketball head coach. Funds the Wooden Leadership Fellowships.",
     "tags": [],
     "going": [],
-    "source": "timeout",
-    "url": "https://www.timeout.com/los-angeles/things-to-do/things-to-do-in-la-this-weekend"
+    "source": "anderson"
   },
   {
-    "id": "to-2026-08-28-1",
-    "t": "Golden Hour: Music in the Garden",
-    "gl": "🎨",
+    "id": "sig2",
+    "t": "UCLA Draper Innovation Showcase",
+    "gl": "🚀",
     "p": 3,
-    "cat": "arts",
-    "date": "2026-08-28T00:00:00.000Z",
-    "d": 4,
-    "s": "19:00",
-    "loc": "Norton Simon Museum Sculpture Garden, Pasadena",
-    "host": "Time Out LA",
+    "cat": "professional",
+    "date": "2026-10-22T16:00:00",
+    "d": 3,
+    "s": "16:00",
+    "loc": "UCLA Anderson",
+    "host": "Price Center",
     "hostId": null,
-    "desc": "Free Friday-evening alfresco concert series in the Norton Simon's renovated Sculpture Garden.",
-    "tags": [],
+    "desc": "Ten startups pitch live for over $250,000 from the Draper family. Networking with investors and operators.",
+    "tags": [
+      "startups"
+    ],
     "going": [],
-    "source": "timeout",
-    "url": "https://www.timeout.com/los-angeles/things-to-do/things-to-do-in-la-this-weekend"
+    "source": "anderson"
   },
   {
-    "id": "to-2026-08-29-2",
+    "id": "sig3",
+    "t": "Anderson Lifelong Learning: Science of Happiness",
+    "gl": "🧠",
+    "p": 2,
+    "cat": "professional",
+    "date": "2026-11-04T12:00:00",
+    "d": 2,
+    "s": "12:00",
+    "loc": "UCLA Anderson",
+    "host": "UCLA Anderson",
+    "hostId": null,
+    "desc": "Applying the science of happiness to life design.",
+    "tags": [
+      "reading"
+    ],
+    "going": [],
+    "source": "anderson"
+  },
+  {
+    "id": "sig4",
+    "t": "Anderson Women Book Club #36",
+    "gl": "📚",
+    "p": 0,
+    "cat": "social",
+    "date": "2026-11-18T18:30:00",
+    "d": 2,
+    "s": "18:30",
+    "loc": "UCLA Anderson",
+    "host": "Anderson Women",
+    "hostId": null,
+    "desc": "The Book Club for Troublesome Women.",
+    "tags": [
+      "reading"
+    ],
+    "going": [],
+    "source": "anderson"
+  },
+  {
+    "id": "to-2026-08-29-0",
     "t": "Daisy Chain Fields",
     "gl": "🎨",
     "p": 3,
@@ -482,50 +440,14 @@
     "loc": "Great Park, Irvine",
     "host": "Time Out LA",
     "hostId": null,
-    "desc": "Olivia Rodrigo's women-fronted music festival debut featuring Chappell Roan, Mitski, Stevie Nicks, Doechii and more.",
+    "desc": "Olivia Rodrigo curates a star-studded music festival featuring Chappell Roan, Mitski, Stevie Nicks, Doechii and more.",
     "tags": [],
     "going": [],
     "source": "timeout",
     "url": "https://www.timeout.com/los-angeles/things-to-do/things-to-do-in-la-this-weekend"
   },
   {
-    "id": "to-2026-08-28-3",
-    "t": "Lucha VaVoom de La Liz",
-    "gl": "🎨",
-    "p": 3,
-    "cat": "arts",
-    "date": "2026-08-28T00:00:00.000Z",
-    "d": 4,
-    "s": "19:00",
-    "loc": "The Mayan, South Park",
-    "host": "Time Out LA",
-    "hostId": null,
-    "desc": "Masked Mexican wrestling, burlesque, aerialists and live music return to the reopened Mayan nightclub.",
-    "tags": [],
-    "going": [],
-    "source": "timeout",
-    "url": "https://www.timeout.com/los-angeles/things-to-do/things-to-do-in-la-this-weekend"
-  },
-  {
-    "id": "to-2026-08-28-4",
-    "t": "Moonlight Hike",
-    "gl": "🥾",
-    "p": 5,
-    "cat": "outdoors",
-    "date": "2026-08-28T00:00:00.000Z",
-    "d": 4,
-    "s": "19:00",
-    "loc": "TreePeople, Coldwater Canyon Park",
-    "host": "Time Out LA",
-    "hostId": null,
-    "desc": "Ambient concert by Head Shoppe followed by a moonlit trail hike hosted by TreePeople.",
-    "tags": [],
-    "going": [],
-    "source": "timeout",
-    "url": "https://www.timeout.com/los-angeles/things-to-do/things-to-do-in-la-this-weekend"
-  },
-  {
-    "id": "to-2026-08-29-5",
+    "id": "to-2026-08-29-1",
     "t": "Echo Park Rising",
     "gl": "🎨",
     "p": 3,
@@ -533,17 +455,17 @@
     "date": "2026-08-29T00:00:00.000Z",
     "d": 5,
     "s": "19:00",
-    "loc": "Echo Park venues",
+    "loc": "Echo Park venues (the Echo, Echoplex, etc.)",
     "host": "Time Out LA",
     "hostId": null,
-    "desc": "Free two-day, all-ages music and comedy festival with hundreds of local performances across Echo Park.",
+    "desc": "Free two-day music and comedy festival showcasing local up-and-coming bands, comedians and art installations.",
     "tags": [],
     "going": [],
     "source": "timeout",
     "url": "https://www.timeout.com/los-angeles/things-to-do/things-to-do-in-la-this-weekend"
   },
   {
-    "id": "to-2026-08-28-6",
+    "id": "to-2026-08-28-2",
     "t": "David Byrne: Who is the Sky?",
     "gl": "🎨",
     "p": 3,
@@ -554,14 +476,14 @@
     "loc": "Hollywood Bowl",
     "host": "Time Out LA",
     "hostId": null,
-    "desc": "David Byrne tours his new album with the Ghost Train Orchestra over two nights at the Bowl.",
+    "desc": "David Byrne performs songs from his new album with the Ghost Train Orchestra over two consecutive nights.",
     "tags": [],
     "going": [],
     "source": "timeout",
     "url": "https://www.timeout.com/los-angeles/things-to-do/things-to-do-in-la-this-weekend"
   },
   {
-    "id": "to-2026-08-29-7",
+    "id": "to-2026-08-29-3",
     "t": "Spinning Sunset",
     "gl": "🍻",
     "p": 0,
@@ -569,17 +491,17 @@
     "date": "2026-08-29T00:00:00.000Z",
     "d": 5,
     "s": "19:00",
-    "loc": "Sunset Plaza, West Hollywood",
+    "loc": "Sunset Plaza, Sunset Strip",
     "host": "Time Out LA",
     "hostId": null,
-    "desc": "Vinyl and music memorabilia market with 80+ booths, DJ sets, vintage cars and food trucks on the Strip.",
+    "desc": "A vinyl and music memorabilia market with over 80 booths, DJ sets, a vintage car show and food trucks.",
     "tags": [],
     "going": [],
     "source": "timeout",
     "url": "https://www.timeout.com/los-angeles/things-to-do/things-to-do-in-la-this-weekend"
   },
   {
-    "id": "to-2026-08-29-8",
+    "id": "to-2026-08-29-4",
     "t": "Los Angeles Hungry Ghost Festival",
     "gl": "🎨",
     "p": 3,
@@ -587,7 +509,7 @@
     "date": "2026-08-29T00:00:00.000Z",
     "d": 5,
     "s": "19:00",
-    "loc": "Chinatown",
+    "loc": "Chinatown, Los Angeles",
     "host": "Time Out LA",
     "hostId": null,
     "desc": "Cultural festival with lion and dragon dances, kung fu demos, fan dancers and a closing costume parade.",
@@ -597,7 +519,7 @@
     "url": "https://www.timeout.com/los-angeles/things-to-do/things-to-do-in-la-this-weekend"
   },
   {
-    "id": "to-2026-08-29-9",
+    "id": "to-2026-08-29-5",
     "t": "Classic Films Under the Stars",
     "gl": "🎨",
     "p": 3,
@@ -608,14 +530,14 @@
     "loc": "Brand Park, Glendale",
     "host": "Time Out LA",
     "hostId": null,
-    "desc": "Alex Film Society's outdoor series of classic movie screenings at Brand Park.",
+    "desc": "Alex Film Society screens classic films outdoors at Brand Park through late September.",
     "tags": [],
     "going": [],
     "source": "timeout",
     "url": "https://www.timeout.com/los-angeles/things-to-do/things-to-do-in-la-this-weekend"
   },
   {
-    "id": "to-2026-08-30-10",
+    "id": "to-2026-08-30-6",
     "t": "The Official Ramones 50th Anniversary Tribute",
     "gl": "🎨",
     "p": 3,
@@ -626,50 +548,14 @@
     "loc": "Hollywood Forever Cemetery",
     "host": "Time Out LA",
     "hostId": null,
-    "desc": "Punk supergroup Cretin Family performs at a one-night tribute hosted by John Travolta for the Ramones' 50th anniversary.",
+    "desc": "Punk supergroup Cretin Family celebrates 50 years of the Ramones with a special tribute hosted by John Travolta.",
     "tags": [],
     "going": [],
     "source": "timeout",
     "url": "https://www.timeout.com/los-angeles/things-to-do/things-to-do-in-la-this-weekend"
   },
   {
-    "id": "to-2026-08-14-11",
-    "t": "Dine L.A. Restaurant Week",
-    "gl": "🌮",
-    "p": 4,
-    "cat": "food",
-    "date": "2026-08-14T00:00:00.000Z",
-    "d": 4,
-    "s": "19:00",
-    "loc": "Citywide, Los Angeles",
-    "host": "Time Out LA",
-    "hostId": null,
-    "desc": "Over 400 restaurants offer budget-friendly prix-fixe menus in the summer edition of Dine L.A.",
-    "tags": [],
-    "going": [],
-    "source": "timeout",
-    "url": "https://www.timeout.com/los-angeles/things-to-do/things-to-do-in-la-this-weekend"
-  },
-  {
-    "id": "to-2026-08-29-12",
-    "t": "East Hollywood Block Party",
-    "gl": "🍻",
-    "p": 0,
-    "cat": "social",
-    "date": "2026-08-29T00:00:00.000Z",
-    "d": 5,
-    "s": "19:00",
-    "loc": "Heliotrope Drive, East Hollywood",
-    "host": "Time Out LA",
-    "hostId": null,
-    "desc": "Community block party with art, shopping, tacos, DJ sets and raffles along Heliotrope Drive.",
-    "tags": [],
-    "going": [],
-    "source": "timeout",
-    "url": "https://www.timeout.com/los-angeles/things-to-do/things-to-do-in-la-this-weekend"
-  },
-  {
-    "id": "to-2026-08-30-13",
+    "id": "to-2026-08-30-7",
     "t": "Dino Fest",
     "gl": "🎨",
     "p": 3,
@@ -677,17 +563,17 @@
     "date": "2026-08-30T00:00:00.000Z",
     "d": 6,
     "s": "19:00",
-    "loc": "Natural History Museum, Exposition Park",
+    "loc": "Natural History Museum, USC/Exposition Park",
     "host": "Time Out LA",
     "hostId": null,
-    "desc": "11th annual dinosaur-themed festival with paleontologists, rare specimens and hands-on activities.",
+    "desc": "11th annual dinosaur festival with paleontologist meet-and-greets, rare specimens and hands-on activities.",
     "tags": [],
     "going": [],
     "source": "timeout",
     "url": "https://www.timeout.com/los-angeles/things-to-do/things-to-do-in-la-this-weekend"
   },
   {
-    "id": "to-2026-08-29-14",
+    "id": "to-2026-08-29-8",
     "t": "Beefsteak",
     "gl": "🌮",
     "p": 4,
@@ -695,36 +581,36 @@
     "date": "2026-08-29T00:00:00.000Z",
     "d": 5,
     "s": "19:00",
-    "loc": "Redbird | Vibiana, Downtown",
+    "loc": "Redbird | Vibiana, Downtown Historic Core",
     "host": "Time Out LA",
     "hostId": null,
-    "desc": "11th annual feast with chef Dario Cecchini, Neal Fraser and Mary Sue Milliken benefiting Regarding Her.",
+    "desc": "11th annual feast featuring Dario Cecchini, Neal Fraser and Mary Sue Milliken serving steak, wine and cocktails.",
     "tags": [],
     "going": [],
     "source": "timeout",
     "url": "https://www.timeout.com/los-angeles/things-to-do/things-to-do-in-la-this-weekend"
   },
   {
-    "id": "to-2026-08-29-15",
+    "id": "to-2026-08-30-9",
     "t": "Leimert Park Jazz Festival",
     "gl": "🎨",
     "p": 3,
     "cat": "arts",
-    "date": "2026-08-29T00:00:00.000Z",
-    "d": 5,
+    "date": "2026-08-30T00:00:00.000Z",
+    "d": 6,
     "s": "19:00",
-    "loc": "Baldwin Hills Crenshaw Plaza rooftop",
+    "loc": "Baldwin Hills Crenshaw Plaza rooftop, South L.A.",
     "host": "Time Out LA",
     "hostId": null,
-    "desc": "Free, family-friendly jazz festival featuring José James, Bobby West and West Coast Get Down.",
+    "desc": "Free community jazz festival featuring José James, Bobby West, West Coast Get Down and more.",
     "tags": [],
     "going": [],
     "source": "timeout",
     "url": "https://www.timeout.com/los-angeles/things-to-do/things-to-do-in-la-this-weekend"
   },
   {
-    "id": "to-2026-08-29-16",
-    "t": "Cinespia: Labyrinth",
+    "id": "to-2026-08-29-10",
+    "t": "Cinespia Cemetery Screening: Labyrinth",
     "gl": "🎨",
     "p": 3,
     "cat": "arts",
@@ -734,61 +620,25 @@
     "loc": "Hollywood Forever Cemetery",
     "host": "Time Out LA",
     "hostId": null,
-    "desc": "Outdoor cult-classic screening of Labyrinth with picnicking, DJ sets and photo booths.",
+    "desc": "Outdoor cult film screening of Labyrinth with picnics, photo booths and DJ sets.",
     "tags": [],
     "going": [],
     "source": "timeout",
     "url": "https://www.timeout.com/los-angeles/things-to-do/things-to-do-in-la-this-weekend"
   },
   {
-    "id": "to-2026-08-28-17",
-    "t": "Adrian: Designing Hollywood, Dressing America",
-    "gl": "🎨",
-    "p": 3,
-    "cat": "arts",
-    "date": "2026-08-28T00:00:00.000Z",
-    "d": 4,
+    "id": "to-2026-08-30-11",
+    "t": "Dog Walking Hours at South Coast Botanic Garden",
+    "gl": "🥾",
+    "p": 5,
+    "cat": "outdoors",
+    "date": "2026-08-30T00:00:00.000Z",
+    "d": 6,
     "s": "19:00",
-    "loc": "ASU FIDM Museum, South Park",
+    "loc": "South Coast Botanic Garden, Rancho Palos Verdes",
     "host": "Time Out LA",
     "hostId": null,
-    "desc": "Free exhibition celebrating costume designer Gilbert Adrian's iconic MGM and couture fashions.",
-    "tags": [],
-    "going": [],
-    "source": "timeout",
-    "url": "https://www.timeout.com/los-angeles/things-to-do/things-to-do-in-la-this-weekend"
-  },
-  {
-    "id": "to-2026-08-20-18",
-    "t": "Presented in VistaVision at the Academy Museum",
-    "gl": "🎨",
-    "p": 3,
-    "cat": "arts",
-    "date": "2026-08-20T00:00:00.000Z",
-    "d": 3,
-    "s": "19:00",
-    "loc": "Academy Museum of Motion Pictures, Miracle Mile",
-    "host": "Time Out LA",
-    "hostId": null,
-    "desc": "Series of classic and modern VistaVision film screenings in the David Geffen Theater.",
-    "tags": [],
-    "going": [],
-    "source": "timeout",
-    "url": "https://www.timeout.com/los-angeles/things-to-do/things-to-do-in-la-this-weekend"
-  },
-  {
-    "id": "to-2026-08-28-19",
-    "t": "Summer Movie Series at Ivy Station",
-    "gl": "🎨",
-    "p": 3,
-    "cat": "arts",
-    "date": "2026-08-28T00:00:00.000Z",
-    "d": 4,
-    "s": "19:00",
-    "loc": "Ivy Station, Culver City",
-    "host": "Time Out LA",
-    "hostId": null,
-    "desc": "Free outdoor movie screenings on the lawn next to the Metro stop, including Legally Blonde and E.T.",
+    "desc": "Monthly dog-friendly garden walk across 87 acres with water stations and optional obedience class.",
     "tags": [],
     "going": [],
     "source": "timeout",
