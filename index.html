@@ -854,8 +854,8 @@ function openEvent(id){
             <div class="guest-grid">${gl.map(uid=>{const u=uid===me.id?me:user(uid);
         return u?`<span class="guest">${avatar(u,"sm")}${u.n}${friends.has(uid)?" ✦":""}</span>`:""}).join("")||
         `<span class="guest" style="color:var(--dim)">Nobody yet — go first</span>`}</div>
-    </div>`
-     ${ev.hostId===me.id?`<div style="display:flex;gap:8px;padding:22px 22px 0">
+        </div>
+    ${ev.hostId===me.id?`<div style="display:flex;gap:8px;padding:22px 22px 0">
       <button class="btn btn-ghost" id="edEdit" style="flex:1">Edit</button>
       <button class="btn btn-ghost" id="edDel" style="flex:1;border-color:#B3483A;color:#B3483A">Delete</button>
     </div>`:""}`;
