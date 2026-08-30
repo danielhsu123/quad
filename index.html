@@ -569,6 +569,33 @@ async function loadQuadEvents(){
   });
   EVENTS=EVENTS.filter(e=>e.source!=="quad").concat(mapped);
 }
+    let editingId=null;
+
+async function deleteEvent(id){
+  const {error}=await db.from("user_events").delete().eq("id",id);
+  if(error){console.error(error);toast("Could not delete");return false}
+  delete rsvps[id];
+  await loadQuadEvents();
+  renderHome();renderBrowse();renderProfile();
+  toast("Event deleted");
+  return true;
+}
+
+function startEdit(ev){
+  editingId=ev.id;
+  cv={gl:ev.gl,p:ev.p??0,inv:new Set()};
+  renderCreate();
+  $("#cvTitle").value=ev.t;
+  $("#cvLoc").value=ev.loc==="TBD"?"":ev.loc;
+  $("#cvDesc").value=ev.desc==="No details yet."?"":ev.desc;
+  $("#cvCat").value=ev.cat;
+  const d=ev.date?new Date(ev.date):new Date();
+  $("#cvDay").value=d.toISOString().slice(0,10);
+  $("#cvTime").value=d.toTimeString().slice(0,5);
+  $("#cvSubmit").textContent="Save changes";
+  paintPreview();
+  show("s-create");
+}
 async function saveRsvp(id,status){
   if(!me) return;
   if(!status) await db.from("rsvps").delete().eq("user_id",me.id).eq("event_id",id);
@@ -827,7 +854,19 @@ function openEvent(id){
             <div class="guest-grid">${gl.map(uid=>{const u=uid===me.id?me:user(uid);
         return u?`<span class="guest">${avatar(u,"sm")}${u.n}${friends.has(uid)?" ✦":""}</span>`:""}).join("")||
         `<span class="guest" style="color:var(--dim)">Nobody yet — go first</span>`}</div>
-    </div>`;
+    </div>`
+     ${ev.hostId===me.id?`<div style="display:flex;gap:8px;padding:22px 22px 0">
+      <button class="btn btn-ghost" id="edEdit" style="flex:1">Edit</button>
+      <button class="btn btn-ghost" id="edDel" style="flex:1;border-color:#B3483A;color:#B3483A">Delete</button>
+    </div>`:""}`;
+      if(ev.hostId===me.id){
+    $("#edEdit").addEventListener("click",()=>{$("#evDock")?.remove();startEdit(ev)});
+    $("#edDel").addEventListener("click",async()=>{
+      if(!confirm(`Delete "${ev.t}"? This can't be undone.`))return;
+      $("#evDock")?.remove();
+      if(await deleteEvent(ev.id)) show("s-home");
+    });
+  }
   const cur=rsvps[ev.id];
   $("#evDock")?.remove();
   const dock=el(`<div class="rsvp-dock" id="evDock">
@@ -962,17 +1001,30 @@ $("#cvSubmit").addEventListener("click",async()=>{
   if(!t){toast("Give it a name first");$("#cvTitle").focus();return}
   const startsAt=new Date($("#cvDay").value+"T"+$("#cvTime").value).toISOString();
 
-  $("#cvSubmit").disabled=true;$("#cvSubmit").textContent="Posting…";
-  const newId=await saveEvent({t,gl:cv.gl,p:cv.p,cat:$("#cvCat").value,
-    startsAt,loc:$("#cvLoc").value||"TBD",desc:$("#cvDesc").value});
+  $("#cvSubmit").disabled=true;$("#cvSubmit").textContent="Saving…";
+  let newId;
+  const wasEdit=!!editingId;
+  if(editingId){
+    const {error}=await db.from("user_events").update({
+      title:t,glyph:cv.gl,palette:cv.p??0,category:$("#cvCat").value,
+      starts_at:startsAt,location:$("#cvLoc").value||"TBD",descr:$("#cvDesc").value
+    }).eq("id",editingId);
+    if(error){console.error(error);toast("Could not save");$("#cvSubmit").disabled=false;
+      $("#cvSubmit").textContent="Save changes";return}
+    newId=editingId;await loadQuadEvents();
+  }else{
+    newId=await saveEvent({t,gl:cv.gl,p:cv.p,cat:$("#cvCat").value,
+      startsAt,loc:$("#cvLoc").value||"TBD",desc:$("#cvDesc").value});
+  }
   $("#cvSubmit").disabled=false;$("#cvSubmit").textContent="Create and send invites";
   if(!newId) return;
+  editingId=null;
 
   rsvps[newId]="going"; saveRsvp(newId,"going");
   cv={gl:"🍻",p:0,inv:new Set()};
   ["#cvTitle","#cvLoc","#cvDesc"].forEach(s=>$(s).value="");
   renderCreate();renderHome();renderBrowse();renderProfile();
-  toast("Your event is live");
+    toast(wasEdit?"Changes saved":"Your event is live");
   prevScreen="s-home";openEvent(newId);
 });
 
@@ -1015,7 +1067,9 @@ $("#nav").addEventListener("click",e=>{
   if(b.dataset.go==="s-browse")renderBrowse();
   if(b.dataset.go==="s-friends")renderFriends($("#fSearch").value);
   if(b.dataset.go==="s-profile")renderProfile();
-  if(b.dataset.go==="s-create")renderCreate();
+    if(b.dataset.go==="s-create"){editingId=null;cv={gl:"🍻",p:0,inv:new Set()};
+    ["#cvTitle","#cvLoc","#cvDesc"].forEach(s=>$(s).value="");
+    renderCreate();$("#cvSubmit").textContent="Create and send invites"}
    show(b.dataset.go);
 });
 
